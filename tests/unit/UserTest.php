@@ -13,15 +13,7 @@ class UserTest extends PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function can_set_email()
-    {
-        $email_to_set = "test@test.com";
-        $this->user->setEmail($email_to_set);
-        $this->assertEquals($this->user->getEmail(), $email_to_set);
-    }
-
-    /** @test */
-    public function can_get_email()
+    public function can_set_and_get_email()
     {
         $email_to_set = "test@test.com";
         $this->user->setEmail($email_to_set);
