@@ -132,4 +132,12 @@ class UserTest extends PHPUnit\Framework\TestCase
 
         $this->assertTrue(password_verify("1234", $this->user->getHashedPassword()));
     }
+
+    /** @test */
+    public function check_password_length()
+    {
+        $password_to_set = "1234";
+
+        $this->assertTrue($this->user->checkUnHashedPasswordLength($password_to_set));
+    }
 }
