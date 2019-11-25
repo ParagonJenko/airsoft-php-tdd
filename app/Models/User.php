@@ -20,10 +20,9 @@ class User
     public function setEmail($email)
     {
         $email = Validation::removeAllWhiteSpace($email);
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        if (Validation::checkIfIsType($email, "email_address")) {
             $this->email_address = $email;
-        } else {
-            throw new TypeNotValidException;
         }
     }
 
@@ -35,9 +34,8 @@ class User
     public function setForename($forename)
     {
         $forename = Validation::removeAllWhiteSpace($forename);
-        if (is_numeric($forename) || !is_string($forename)) {
-            throw new TypeNotValidException;
-        } else {
+
+        if (!Validation::checkIfNotType($forename, "integer", false) && Validation::checkIfIsType($forename, "string")) {
             $this->forename = $forename;
         }
     }
@@ -50,9 +48,7 @@ class User
     public function setSurname($surname)
     {
         $surname = Validation::removeAllWhiteSpace($surname);
-        if (is_numeric($surname) || !is_string($surname)) {
-            throw new TypeNotValidException;
-        } else {
+        if (!Validation::checkIfNotType($surname, "integer", false) && Validation::checkIfIsType($surname, "string")) {
             $this->surname = $surname;
         }
     }
@@ -71,8 +67,6 @@ class User
     {
         if (Validation::checkStringLength($password, ">=", 4)) {
             $this->password = password_hash($password, PASSWORD_DEFAULT);
-        } else {
-            throw new NotEnougCharacterException;
         }
     }
 
