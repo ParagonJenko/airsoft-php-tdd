@@ -16,7 +16,7 @@ class User
 
     public function setEmail($email)
     {
-        $email = trim($email);
+        $email = Validation::removeAllWhiteSpace($email);
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->email_address = $email;
         } else {
@@ -31,7 +31,7 @@ class User
 
     public function setForename($forename)
     {
-        $forename = preg_replace('/\s/', '', $forename);
+        $forename = Validation::removeAllWhiteSpace($forename);
         if (is_numeric($forename) || !is_string($forename)) {
             throw new TypeNotValidException;
         } else {
@@ -46,7 +46,7 @@ class User
 
     public function setSurname($surname)
     {
-        $surname = preg_replace('/\s/', '', $surname);
+        $surname = Validation::removeAllWhiteSpace($surname);
         if (is_numeric($surname) || !is_string($surname)) {
             throw new TypeNotValidException;
         } else {
