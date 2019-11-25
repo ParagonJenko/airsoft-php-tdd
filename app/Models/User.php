@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exceptions\TypeNotValidException;
+use App\Support\Validation;
 
 class User
 {
