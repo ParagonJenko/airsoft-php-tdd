@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Exceptions\TypeNotValidException;
+use App\Exceptions\NotEnougCharacterException;
 use App\Support\Validation;
 
 class User
 {
     private $email_address;
     private $forename;
+    private $surname;
+    private $password;
 
     public function __construct()
     {
@@ -62,5 +65,19 @@ class User
     public function getFullName()
     {
         return "$this->forename $this->surname";
+    }
+
+    public function setHashedPassword($password)
+    {
+        if (strlen($password) >= 4) {
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
+        } else {
+            throw new NotEnougCharacterException;
+        }
+    }
+
+    public function getHashedPassword()
+    {
+        return $this->password;
     }
 }

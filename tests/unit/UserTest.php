@@ -117,4 +117,19 @@ class UserTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals($this->user->getFullName(), "Test Example");
     }
+
+    /**
+    *
+    *
+    *
+    */
+    /** @test */
+    public function can_set_password()
+    {
+        $password_to_set = "1234";
+
+        $this->user->setHashedPassword($password_to_set);
+
+        $this->assertTrue(password_verify("1234", $this->user->getHashedPassword()));
+    }
 }
