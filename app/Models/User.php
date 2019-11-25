@@ -30,10 +30,11 @@ class User
 
     public function setForename($forename)
     {
+        $forename = preg_replace('/\s/', '', $forename);
         if (is_numeric($forename) || !is_string($forename)) {
             throw new TypeNotValidException;
         } else {
-            $this->forename = trim($forename);
+            $this->forename = $forename;
         }
     }
 
@@ -44,15 +45,21 @@ class User
 
     public function setSurname($surname)
     {
+        $surname = preg_replace('/\s/', '', $surname);
         if (is_numeric($surname) || !is_string($surname)) {
             throw new TypeNotValidException;
         } else {
-            $this->surname = trim($surname);
+            $this->surname = $surname;
         }
     }
 
     public function getSurname()
     {
         return $this->surname;
+    }
+
+    public function getFullName()
+    {
+        return "$this->forename $this->surname";
     }
 }
