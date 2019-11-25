@@ -69,15 +69,8 @@ class User
 
     public function setHashedPassword($password)
     {
-        if ($this->checkUnHashedPasswordLength($password)) {
+        if (Validation::checkStringLength($password, ">=", 4)) {
             $this->password = password_hash($password, PASSWORD_DEFAULT);
-        }
-    }
-
-    public function checkUnHashedPasswordLength($password)
-    {
-        if (strlen($password) >= 4) {
-            return true;
         } else {
             throw new NotEnougCharacterException;
         }
