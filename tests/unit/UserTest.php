@@ -126,10 +126,18 @@ class UserTest extends PHPUnit\Framework\TestCase
     /** @test */
     public function can_set_password()
     {
-        $password_to_set = "234";
+        $password_to_set = "12345";
 
         $this->user->setHashedPassword($password_to_set);
 
-        $this->assertTrue(password_verify("234", $this->user->getHashedPassword()));
+        $this->assertTrue(password_verify("12345", $this->user->getHashedPassword()));
+    }
+
+    /** @test */
+    public function password_must_be_over_four_characters()
+    {
+        $password_to_set = "1234";
+
+        $this->assertTrue($this->user->checkPasswordLength($password_to_set));
     }
 }

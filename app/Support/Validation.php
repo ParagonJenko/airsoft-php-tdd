@@ -1,7 +1,7 @@
 <?php
 namespace App\Support;
 
-use App\Exceptions\NotEnougCharacterException;
+use App\Exceptions\NotEnoughCharactersException;
 
 class Validation
 {
@@ -10,66 +10,62 @@ class Validation
         return preg_replace('/\s/', '', $string);
     }
 
-    public static function checkStringLength($string, $operator, $lengthInteger)
+    public static function checkStringLength($string, $operator, $lengthInteger, $returnException = true)
     {
         switch ($operator) {
             case "==":
-                if (!strlen($string) == $lengthInteger) {
-                    throw new NotEnougCharacterException;
+                if (strlen($string) == $lengthInteger) {
+                    return true;
                 }
                 break;
             case ">=":
-                if (!strlen($string) >= $lengthInteger) {
-                    throw new NotEnougCharacterException;
+                if (strlen($string) >= $lengthInteger) {
+                    return true;
                 }
                 break;
             case "<=":
-                if (!strlen($string) <= $lengthInteger) {
-                    throw new NotEnougCharacterException;
+                if (strlen($string) <= $lengthInteger) {
+                    return true;
                 }
                 break;
             case "!=":
-                if (!strlen($string) != $lengthInteger) {
-                    throw new NotEnougCharacterException;
+                if (strlen($string) != $lengthInteger) {
+                    return true;
                 }
                 break;
         };
-
-        return true;
+        if ($returnException) {
+            throw new NotEnoughCharactersException;
+        } else {
+            return false;
+        }
     }
 
     public static function checkIfNotType($variable, $type, $returnException = true)
     {
         switch ($type) {
             case "string":
-                if (!is_string($variable)) {
-                    if ($returnException) {
-                        throw new TypeNotValidException;
-                    } else {
-                        return false;
-                    }
+                if (is_string($variable)) {
+                    return true;
                 }
                 break;
             case "integer":
-                if (!is_numeric($variable)) {
-                    if ($returnException) {
-                        throw new TypeNotValidException;
-                    } else {
-                        return false;
-                    }
+                if (is_numeric($variable)) {
+                    return true;
                 }
                 break;
             case "email_address":
-                if (!filter_var($variable, FILTER_VALIDATE_EMAIL)) {
-                    if ($returnException) {
-                        throw new TypeNotValidException;
-                    } else {
-                        return false;
-                    }
+                if (filter_var($variable, FILTER_VALIDATE_EMAIL)) {
+                    return true;
                 }
                 break;
         }
-        return true;
+
+        if ($returnException) {
+            throw new TypeNotValidException;
+        } else {
+            return false;
+        }
     }
 
     public static function checkIfIsType($variable, $type)

@@ -65,9 +65,15 @@ class User
 
     public function setHashedPassword($password)
     {
-        if (Validation::checkStringLength($password, ">=", 4)) {
+        $password = Validation::removeAllWhiteSpace($password);
+        if ($this->checkPasswordLength($password)) {
             $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
+    }
+
+    public function checkPasswordLength($password)
+    {
+        return Validation::checkStringLength($password, ">=", 4, true);
     }
 
     public function getHashedPassword()
