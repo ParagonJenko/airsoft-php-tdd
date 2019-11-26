@@ -14,7 +14,7 @@ class UserTest extends PHPUnit\Framework\TestCase
 
     /**
     *
-    *
+    *   Email Address
     *
     */
     /** @test */
@@ -43,7 +43,7 @@ class UserTest extends PHPUnit\Framework\TestCase
 
     /**
     *
-    *
+    *   Forename
     *
     */
     /** @test */
@@ -91,7 +91,7 @@ class UserTest extends PHPUnit\Framework\TestCase
 
     /**
     *
-    *
+    *   Surname
     *
     */
     /** @test */
@@ -139,7 +139,7 @@ class UserTest extends PHPUnit\Framework\TestCase
 
     /**
     *
-    *
+    *   Concatenations
     *
     */
     /** @test */
@@ -156,7 +156,7 @@ class UserTest extends PHPUnit\Framework\TestCase
 
     /**
     *
-    *
+    *   Password
     *
     */
     /** @test */
@@ -179,4 +179,10 @@ class UserTest extends PHPUnit\Framework\TestCase
 
         $this->user->setHashedPassword($password_to_set);
     }
+
+    /**
+    *
+    *
+    *
+    */
 }
