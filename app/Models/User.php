@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Exceptions\TypeNotValidException;
-use App\Exceptions\NotEnougCharacterException;
 use App\Support\Validation;
 
 class User
@@ -35,7 +33,9 @@ class User
     {
         $forename = Validation::removeAllWhiteSpace($forename);
 
-        if (!Validation::checkIfNotType($forename, "integer", false) && Validation::checkIfIsType($forename, "string")) {
+        Validation::checkIfIsNotType($forename, "integer");
+
+        if (Validation::checkIfIsType($forename, "string")) {
             $this->forename = $forename;
         }
     }
@@ -48,7 +48,10 @@ class User
     public function setSurname($surname)
     {
         $surname = Validation::removeAllWhiteSpace($surname);
-        if (!Validation::checkIfNotType($surname, "integer", false) && Validation::checkIfIsType($surname, "string")) {
+
+        Validation::checkIfIsNotType($surname, "integer");
+
+        if (Validation::checkIfIsType($surname, "string")) {
             $this->surname = $surname;
         }
     }
@@ -66,14 +69,9 @@ class User
     public function setHashedPassword($password)
     {
         $password = Validation::removeAllWhiteSpace($password);
-        if ($this->checkPasswordLength($password)) {
+        if (Validation::checkStringLength($password, ">=", 4, true)) {
             $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
-    }
-
-    public function checkPasswordLength($password)
-    {
-        return Validation::checkStringLength($password, ">=", 4, true);
     }
 
     public function getHashedPassword()

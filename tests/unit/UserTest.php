@@ -71,6 +71,24 @@ class UserTest extends PHPUnit\Framework\TestCase
         $this->assertIsString($this->user->getForename());
     }
 
+    /** @test */
+    public function forename_can_not_be_an_integer()
+    {
+        $this->expectException(App\Exceptions\TypeNotValidException::class);
+
+        $forename_to_set = 1234;
+        $this->user->setForename($forename_to_set);
+    }
+
+    /** @test */
+    public function forename_can_not_be_an_array()
+    {
+        $this->expectException(App\Exceptions\TypeNotValidException::class);
+
+        $forename_to_set = [];
+        $this->user->setForename($forename_to_set);
+    }
+
     /**
     *
     *
@@ -99,6 +117,24 @@ class UserTest extends PHPUnit\Framework\TestCase
         $this->user->setSurname($surname_to_set);
         $this->assertIsNotNumeric($this->user->getSurname());
         $this->assertIsString($this->user->getSurname());
+    }
+
+    /** @test */
+    public function surname_can_not_be_an_integer()
+    {
+        $this->expectException(App\Exceptions\TypeNotValidException::class);
+
+        $surname_to_set = 1234;
+        $this->user->setSurname($surname_to_set);
+    }
+
+    /** @test */
+    public function surname_can_not_be_an_array()
+    {
+        $this->expectException(App\Exceptions\TypeNotValidException::class);
+
+        $surname_to_set = [];
+        $this->user->setSurname($surname_to_set);
     }
 
     /**
@@ -141,6 +177,6 @@ class UserTest extends PHPUnit\Framework\TestCase
         $this->expectException(App\Exceptions\NotEnoughCharactersException::class);
         $password_to_set = "123";
 
-        $this->user->checkPasswordLength($password_to_set);
+        $this->user->setHashedPassword($password_to_set);
     }
 }
