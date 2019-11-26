@@ -133,11 +133,14 @@ class UserTest extends PHPUnit\Framework\TestCase
         $this->assertTrue(password_verify("12345", $this->user->getHashedPassword()));
     }
 
-    /** @test */
+    /**
+    * @test
+    */
     public function password_must_be_over_four_characters()
     {
-        $password_to_set = "1234";
+        $this->expectException(App\Exceptions\NotEnoughCharactersException::class);
+        $password_to_set = "123";
 
-        $this->assertTrue($this->user->checkPasswordLength($password_to_set));
+        $this->user->checkPasswordLength($password_to_set);
     }
 }
