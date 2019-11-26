@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-class NotEnougCharacterException extends \Exception
+class NotEnoughCharactersException extends \Exception
 {
     public function errorMessage()
     {
